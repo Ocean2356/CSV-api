@@ -11,7 +11,7 @@ This challenge involves building a small API server and corresponding command-li
 
 For this task we'll be building a very simple Python 3-based REST API server and command-line client. 
 
-You may use any Python libraries and technologies of your choice, for instance Django, Flask, FastAPI, etc, to build the API server (internally we use Django/DRF so recommend that).
+You may use any Python libraries and technologies of your choice, for instance FastAPI, etc, to build the API server.
 
 ## API Server
 
@@ -31,7 +31,7 @@ The client app should be a fully standalone command-line python application, tha
 
 ## Technologies
 
-- A Python 3 framework that supports generating JSON APIs (we highly recommend Django and DRF as we use these ourselves)
+- A Python 3 framework that supports generating JSON APIs (FastAPI)
 - Build systems, tools, and scripts of your choice, e.g. poetry, setup.py, docker, etc.
 - Any libraries you may find useful to help your task, we prioritise using existing libraries to accomplish tasks rather than building in-house
 
@@ -45,10 +45,15 @@ The client app should be a fully standalone command-line python application, tha
 
 - As CSVs can be untrusted, you should consider running the CSV importing within a container / sandbox
 
-# Review
+# Instructions
 
-Please don't spend more than 2-4 hours on this - we're looking to see how you approached the problem and the decisions made rather than a complete solution. This should be a fun challenge rather than a stressful endeavour.
+- Start the server
+  - `cd name-of-server-dir`
+  - `uvicorn server:app --reload`
 
-There is no right answer as such, we will mainly be looking at code quality, software architecture skills, completeness of the solution from a software engineering perspective, and clarity of thought.
+- Start the client
+  - `cd name-of-client-dir`
+  - `python client.py`
 
-Once completed, please create a PR containing your work, send us an email, and book a second follow-up interview via angellist (https://angel.co/schedule/mandeep-gill-2).
+- Docs
+  - 'localhost:8000/docs' for the server
