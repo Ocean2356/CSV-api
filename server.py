@@ -17,13 +17,13 @@ def home():
 @app.get("/datasets")
 def list_dataset():
     if len(datasets) == 0: return {"message": "no_datasets"}
-    return {"message": "datasets_list", "datasets": datasets}
+    filename_id = {datasets[i]["filename"][0]: str(i) for i in datasets}
+    return {"message": "datasets_list", "datasets": filename_id}
     # return Response(content =  datasets, media_type = "application/json")
 
 @app.post("/datasets")
 def create_dataset(dataset: UploadFile = File(...)):
     contents = dataset.file
-    print(contents)
     df = pd.read_csv(contents)
     df["filename"] = dataset.filename
     dataset_id = uuid.uuid4()

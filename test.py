@@ -17,10 +17,9 @@ if __name__ == '__main__':
     cli.do_info("sample_data_1.csv")
     print()
 
-    # BUG
-    # print("list")
-    # cli.do_list("")
-    # print()
+    print("list")
+    cli.do_list("")
+    print()
 
     print("delete")
     cli.do_delete("sample_data_1.csv")
