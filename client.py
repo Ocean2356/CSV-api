@@ -82,6 +82,19 @@ class Client(cmd.Cmd):
             df.to_excel("%s.xlsx" % filename)
             print("Dataset saved as %s.xlsx" % filename)
 
+    def do_stats(self, inp):
+        '''get statistics about a dataset on the server.'''
+        url = "http://localhost:8000/datasets/" + self.file[inp] + "/stats"
+        methode = "GET"
+        response = requests.request(methode, url)
+        if response.json()["message"] == "dataset_not_found":
+            print("Dataset not found.")
+            return
+        if response.json()["message"] == "dataset_stats":
+            print("Dataset statistics:")
+            stats = response.json()["stats"]
+            print(stats)
+
     def do_EOF(self, inp):
         '''exit the application.'''
         return self.do_exit(inp)

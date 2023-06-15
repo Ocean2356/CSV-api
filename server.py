@@ -60,3 +60,7 @@ def excel_dataset(dataset_id: uuid.UUID):
     if dataset_id not in datasets: return {"message": "dataset_not_found"}
     return {"message": "dataset_excel", "dataset_excel": datasets[dataset_id].to_csv()}
 
+@app.get("/datasets/{dataset_id}/stats")
+def stats_dataset(dataset_id: uuid.UUID):
+    if dataset_id not in datasets: return {"message": "dataset_not_found"}
+    return {"message": "dataset_stats", "stats": datasets[dataset_id].describe()}
