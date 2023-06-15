@@ -1,5 +1,7 @@
 import cmd
 import requests
+import pandas as pd
+from io import StringIO
 
 class Client(cmd.Cmd):
     def __init__(self):
@@ -64,6 +66,21 @@ class Client(cmd.Cmd):
             print("Dataset information:")
             print("filename: %s" % response.json()["filename"])
             print("size: %s" % response.json()["size"])
+
+    def do_excel(self, inp):
+        '''get a dataset from the server in excel format.'''
+        url = "http://localhost:8000/datasets/" + self.file[inp] + "/excel"
+        methode = "GET"
+        response = requests.request(methode, url)
+        if response.json()["message"] == "dataset_not_found":
+            print("Dataset not found.")
+            return
+        if response.json()["message"] == "dataset_excel":
+            filename = inp.split(".")[0]
+            csv_file = StringIO(response.json()["dataset_excel"])
+            df = pd.read_csv(csv_file)
+            df.to_excel("%s.xlsx" % filename)
+            print("Dataset saved as %s.xlsx" % filename)
 
     def do_EOF(self, inp):
         '''exit the application.'''

@@ -53,3 +53,10 @@ def info_dataset(dataset_id: uuid.UUID):
     # return Response(header = "dataset_info",
     #                 content = {"filename": datasets[dataset_id]["filename"][0], "size": datasets[dataset_id].shape[0]},
     #                 media_type = "application/json")
+
+# return the dataset in excel format
+@app.get("/datasets/{dataset_id}/excel")
+def excel_dataset(dataset_id: uuid.UUID):
+    if dataset_id not in datasets: return {"message": "dataset_not_found"}
+    return {"message": "dataset_excel", "dataset_excel": datasets[dataset_id].to_csv()}
+

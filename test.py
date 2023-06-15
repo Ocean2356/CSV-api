@@ -21,6 +21,10 @@ if __name__ == '__main__':
     cli.do_list("")
     print()
 
+    print("excel")
+    cli.do_excel("sample_data_1.csv")
+    print()
+
     print("delete")
     cli.do_delete("sample_data_1.csv")
     print()
