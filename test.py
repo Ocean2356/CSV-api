@@ -29,6 +29,11 @@ if __name__ == '__main__':
     cli.do_stats("sample_data_1.csv")
     print()
 
+    # BUG in server
+    # print("plot")
+    # cli.do_plot("sample_data_1.csv")
+    # print()
+
     print("delete")
     cli.do_delete("sample_data_1.csv")
     print()

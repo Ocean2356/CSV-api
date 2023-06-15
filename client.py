@@ -95,6 +95,24 @@ class Client(cmd.Cmd):
             stats = response.json()["stats"]
             print(stats)
 
+    def do_plot(self, inp):
+        '''plot a dataset from the server.'''
+        url = "http://localhost:8000/datasets/" + self.file[inp] + "/plot"
+        methode = "GET"
+        file_response = requests.get(url, stream=True)
+        if file_response.status_code == 404:
+            print("Dataset not found.")
+            return
+        if file_response.status_code == 200:
+            filename = inp.split(".")[0]
+            file_content = file_response.content
+            content_type = file_response.headers["Content-Type"]
+            if content_type == "image/pdf":
+                with open("%s.pdf" % filename, "wb") as file:
+                    file.write(file_content)
+                print("Dataset saved as %s.pdf" % filename)
+
+
     def do_EOF(self, inp):
         '''exit the application.'''
         return self.do_exit(inp)
