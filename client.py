@@ -107,7 +107,7 @@ class Client(cmd.Cmd):
             filename = inp.split(".")[0]
             file_content = file_response.content
             content_type = file_response.headers["Content-Type"]
-            if content_type == "image/pdf":
+            if content_type == "application/pdf":
                 with open("%s.pdf" % filename, "wb") as file:
                     file.write(file_content)
                 print("Dataset saved as %s.pdf" % filename)

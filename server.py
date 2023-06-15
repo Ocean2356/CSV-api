@@ -4,8 +4,10 @@ from fastapi.responses import JSONResponse, FileResponse
 import pandas as pd
 from pandas import DataFrame
 import uuid
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
+
+import plt
 
 app = FastAPI()
 
@@ -78,14 +80,18 @@ def stats_dataset(dataset_id: uuid.UUID):
 def plot_dataset(dataset_id: uuid.UUID):
     if dataset_id not in datasets: return {"message": "dataset_not_found"}
     df = datasets[dataset_id]
-    tmp = "_histograms.pdf"
-    pp = PdfPages(tmp)
-    for col in df.select_dtypes(include="number").columns:
-        plt.hist(df[col], bins=10)
-        plt.title(f"Histogram of {col}")
-        plt.xlabel(col)
-        plt.ylabel("Frequency")
-        pp.savefig(plt.gcf())
-        plt.clf()
-    pp.close()
+    tmp = "plt.pdf"
+    
+    plt.plot_hist(df, tmp)   
+
+    # pp = PdfPages(tmp)
+    # for col in df.select_dtypes(include="number").columns:
+    #     plt.hist(df[col], bins=10)
+    #     plt.title(f"Histogram of {col}")
+    #     plt.xlabel(col)
+    #     plt.ylabel("Frequency")
+    #     pp.savefig(plt.gcf())
+    #     plt.clf()
+    # pp.close()
+
     return FileResponse(tmp, media_type="application/pdf")

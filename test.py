@@ -30,9 +30,10 @@ if __name__ == '__main__':
     print()
 
     # BUG in server
-    # print("plot")
-    # cli.do_plot("sample_data_1.csv")
-    # print()
+    # but evited by calling plt.py
+    print("plot")
+    cli.do_plot("sample_data_1.csv")
+    print()
 
     print("delete")
     cli.do_delete("sample_data_1.csv")
