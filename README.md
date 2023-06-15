@@ -18,7 +18,7 @@ You may use any Python libraries and technologies of your choice, for instance F
 The API server should have a single root endpoint, `/dataset/`, that allows list and CRUD operations over a dataset object via the following API / HTTP verbs:
 
  - `GET /datasets/` - list the uploaded datasets
- - `POST /datasets/` - creates a dataset. This endpoint takes a CSV file as input, and stores it somewhere/how on the server as a pandas dataframe. A reference to this created object is returned by the endpoint, for instance an `id` or `url`.
+ - `POST /datasets/` - creates a dataset. This endpoint takes a CSV file as input, and stores it somewhere/how on the server as a pandas dataframe. A reference id to this created object is returned by the endpoint.
  - `GET /datasets/<id>/` - return the file name, and size of the dataset object
  - `DELETE /datasets/<id>/` - delete the dataset object
  - `GET /datasets/<id>/excel/` - export the dataset as an excel file
@@ -28,6 +28,12 @@ The API server should have a single root endpoint, `/dataset/`, that allows list
 ## Client Library
 
 The client app should be a fully standalone command-line python application, that is easily installable and runnable. The app should provide command-line arguments that correspond and support each of the API actions above - how you structure the command line arguments and what you call them is left up to yourselves.
+
+ - `list` - list the uploaded datasets
+ - `clear` - delete all the datasets
+ - `create name-of-dataset.csv` - creates a dataset. This endpoint takes a CSV file as input, and stores it somewhere/how on the server as a pandas dataframe. A reference id to this created object is returned by the endpoint.
+ - `delete name-of-dataset.csv` - delete the dataset object
+ - `info name-of-dataset.csv` - return the file name, and size of the dataset object
 
 ## Technologies
 
@@ -49,7 +55,7 @@ The client app should be a fully standalone command-line python application, tha
 
 - Start the server
   - `cd name-of-server-dir`
-  - `uvicorn server:app --reload`
+  - `uvicorn server:app`
 
 - Start the client
   - `cd name-of-client-dir`
