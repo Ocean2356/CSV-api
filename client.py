@@ -14,8 +14,6 @@ class Client(cmd.Cmd):
         url = "http://localhost:8000/datasets"
         methode = "GET"
         response = requests.request(methode, url)
-        # print(response)
-        # print(response.json())
         if response.json()["message"] == "no_datasets":
             print("No datasets on the server.")
             return
@@ -31,9 +29,6 @@ class Client(cmd.Cmd):
         url = "http://localhost:8000/datasets"
         methode = "DELETE"
         response = requests.request(methode, url)
-        # print(response)
-        # print(response.content)
-        # print(response.json())
         if response.json()["message"] == "datasets_cleared":
             self.file.clear()
             print("All datasets on the server are cleared.")
@@ -46,11 +41,7 @@ class Client(cmd.Cmd):
         methode = "POST"
         files = {"dataset": open(inp, "rb")}
         response = requests.request(methode, url, files=files)
-        # self.file[inp] = response.json()["dataset_id"]
-        if self.file == None:
-            self.file = {}
         self.file.update({inp: response.json()["dataset_id"]})
-        # print(self.file)
         if response.json()["message"] == "dataset_created":
             print("Dataset created on the server, id: %s" % response.json()["dataset_id"])
 

@@ -21,6 +21,12 @@ def list_dataset():
     return {"message": "datasets_list", "datasets": filename_id}
     # return Response(content =  datasets, media_type = "application/json")
 
+@app.delete("/datasets")
+def clear_all_datasets():
+    datasets.clear()
+    return {"message": "datasets_cleared"}
+    # return Response(headers = "datasets_cleared", media_type = "application/json")
+
 @app.post("/datasets")
 def create_dataset(dataset: UploadFile = File(...)):
     contents = dataset.file
@@ -30,13 +36,6 @@ def create_dataset(dataset: UploadFile = File(...)):
     datasets[dataset_id] = df
     return {"message": "dataset_created", "dataset_id": dataset_id}
     # return Response(headers = "dataset_created", content = {"dataset_id": dataset_id}, media_type = "application/json")
-
-@app.delete("/datasets")
-def delete_all_datasets():
-    datasets.clear()
-    return {"message": "datasets_deleted"}
-    # return Response(content = "datasets_cleared", media_type = "text/plain")
-    # return Response(headers = "datasets_cleared", media_type = "application/json")
 
 @app.delete("/datasets/{dataset_id}")
 def delete_dataset(dataset_id: uuid.UUID):
@@ -48,7 +47,7 @@ def delete_dataset(dataset_id: uuid.UUID):
     
 # return the file name, and size of the dataset object
 @app.get("/datasets/{dataset_id}")
-def get_dataset(dataset_id: uuid.UUID):
+def info_dataset(dataset_id: uuid.UUID):
     if dataset_id not in datasets: return {"message": "dataset_not_found"}
     return {"message": "dataset_info", "filename": datasets[dataset_id]["filename"][0], "size": datasets[dataset_id].shape[0]}
     # return Response(header = "dataset_info",
